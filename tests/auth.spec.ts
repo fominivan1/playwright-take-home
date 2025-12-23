@@ -4,7 +4,7 @@ import { AuthProtectedPage } from '../POM/AuthProtectedPage';
 
 test.describe('Authentication Flow', () => {
 
-  test('Login through UI and save storage state', async ({ page }) => {
+  test('AUTH-001: Login through UI and save storage state', async ({ page }) => {
     const login = new AuthLoginPage(page);
 
     await login.goto();
@@ -15,7 +15,7 @@ test.describe('Authentication Flow', () => {
     await page.context().storageState({ path: 'auth.json' });
   });
 
-  test('Login with invalid credentials', async ({ page }) => {
+  test('AUTH-002: Login with invalid credentials', async ({ page }) => {
     const login = new AuthLoginPage(page);
 
     await login.goto();
@@ -24,7 +24,7 @@ test.describe('Authentication Flow', () => {
     await expect(page.locator('text=Invalid')).toBeVisible();
   });
 
-  test('Access protected route using auth token', async ({ browser }) => {
+  test('AUTH-003: Access protected route using auth token', async ({ browser }) => {
     const context = await browser.newContext({ storageState: 'auth.json' });
     const page = await context.newPage();
 
